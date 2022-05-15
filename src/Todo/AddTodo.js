@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
+import Form from 'react-bootstrap/Form'
+import { Button } from 'react-bootstrap'
 
 
 function AddTodo ({onCreate}) {
@@ -7,17 +9,21 @@ function AddTodo ({onCreate}) {
 
     function submitHandler(event) {
         event.preventDefault()
-        if(value.trim()) {
+        if (value.trim()) {
             onCreate(value)
             setValue('')
         }
     } 
 
     return (
-        <form style={{marginBottom: '1rem'}} onSubmit={submitHandler} >
-            <input value={value} onChange={event=>setValue(event.target.value)} />
-            <button type='submit'>Add Todo</button>
-        </form>
+        <Form className='w-75' onSubmit={submitHandler}> 
+            <Form.Group controlId="exampleForm.ControlInput1" >
+                <Form.Label><h2>Enter Todos</h2></Form.Label>
+                <Form.Control className='my-3' value={value} onChange={event=>setValue(event.target.value)} />
+                <Button type='submit' variant="primary">Add Todo</Button>
+                {/* <button type='submit'>Add Todo</button> */}
+            </Form.Group>
+        </Form>
     )
 }
 

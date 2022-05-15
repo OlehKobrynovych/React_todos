@@ -4,6 +4,9 @@ import React, {useState, useEffect} from 'react'
 import Context from './Todo/Context'
 import AddTodo from './Todo/AddTodo'
 import Loader from './Loader'
+import Container from 'react-bootstrap/Container'
+import { Col, Row } from 'react-bootstrap';
+
 
 
 
@@ -40,27 +43,33 @@ function App() {
       return todo
     }
     ))
-}
+  }
 
-function removeTodo (id) {
-  setTodos(todos.filter(todo => todo.id!=id))
-}
+  function removeTodo (id) {
+    setTodos(todos.filter(todo => todo.id!=id))
+  }
 
-function addTodo(title) {
-  setTodos([...todos, {id: Date.now(), completes: false, title: title}])
-}
+  function addTodo(title) {
+    setTodos([...todos, {id: Date.now(), completes: false, title: title}])
+  }
 
   return (
-    <Context.Provider value={{removeTodo}} >
-
-        <div className="wrapper">
-          <AddTodo onCreate={addTodo} />
-          { loader && <Loader/> }
-          {todos.length ? <TodoList todos={todos} onToggle={toggleTodo} /> : 
-          loader ? '' : <p>No Todos </p>}
-          
-        </div>
-    </Context.Provider>
+    <Container >
+      <Context.Provider value={{removeTodo}} >
+        <Row className='m-3'>
+          <Col>
+            <AddTodo onCreate={addTodo} />
+          </Col>
+        </Row>
+        <Row className="w-75">
+          <Col>
+            { loader && <Loader/> }
+            {todos.length ? <TodoList todos={todos} onToggle={toggleTodo} /> : 
+            loader ? '' : <p>No Todos </p>}
+          </Col>
+        </Row>
+      </Context.Provider>
+    </Container>
     )
 }
 
